@@ -41,16 +41,35 @@ export class KundeMainComponent implements OnInit {
     )
   }
 
+  refreshData() {
+    this.loadKunden()
+  }
+
   updateKunde(updatedKunde: Kunde): void {
-    this.kundenRepo.update(updatedKunde.id, updatedKunde).subscribe({ error: (err) => console.log(err) });
+    this.kundenRepo.update(updatedKunde.id, updatedKunde)
+      .subscribe({
+        next: (v) => console.log(v),
+        error: (err) => this.error = err,
+        complete: () => this.refreshData()
+      });
   }
 
   delKunde(delKunde: Kunde): void {
-    this.kundenRepo.delete(delKunde.id);
+    this.kundenRepo.delete(delKunde.id)
+      .subscribe({
+        next: (v) => console.log(v),
+        error: (err) => this.error = err,
+        complete: () => this.refreshData()
+      });
   }
 
   createKunde(kunde: Kunde): void {
-    this.kundenRepo.create(kunde);
+    this.kundenRepo.create(kunde)
+      .subscribe({
+        next: (v) => console.log(v),
+        error: (err) => this.error = err,
+        complete: () => this.refreshData()
+      });
   }
 
 }

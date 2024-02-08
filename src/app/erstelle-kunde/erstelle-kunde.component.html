@@ -1,38 +1,57 @@
 <div class="flex items-center">
     <button class="bg-blue-500 text-white px-4 py-2 rounded" (click)="openModal()">Add</button>
 </div>
-<div class="modal" [style.display]="showModal ? 'block' : 'none'">
-    <form [formGroup]="kundeForm" (ngSubmit)="onSubmit()">
+<div class="modal" [style.display]="showModal ? 'flex' : 'none'">
+    <form [formGroup]="kundeForm" (ngSubmit)="onSubmit()" class="modal-form">
 
-        <label>Vorname: <input formControlName="vorname" /></label>
-        <div *ngIf="kundeForm.get('vorname')?.hasError('required')">Name is required.</div>
-
-        <label>Nachname: <input formControlName="nachname" /></label>
-        <div *ngIf="kundeForm.get('nachname')?.hasError('required')">Name is required.</div>
-
-        <label>Tel: <input formControlName="tel" /></label>
-        <div *ngIf="kundeForm.get('tel')?.hasError('required')">Name is required.</div>
-
-        <div formGroupName="adresse">
-            <label>Strasse: <input formControlName="strasse" /></label>
-            <div *ngIf="kundeForm.get('tel')?.hasError('required')">Name is required.</div>
+        <div class="form-group">
+            <label for="vorname">Vorname:</label>
+            <input id="vorname" type="text" formControlName="vorname" class="input-field" />
+            <div *ngIf="kundeForm.get('vorname')?.hasError('required')" class="error-message">Name is required.</div>
         </div>
 
-        <div formGroupName="adresse">
-            <label>Hausnr: <input formControlName="hausnr" /></label>
-            <div *ngIf="kundeForm.get('hausnr')?.hasError('required')">Name is required.</div>
+        <div class="form-group">
+            <label for="nachname">Nachname:</label>
+            <input id="nachname" type="text" formControlName="nachname" class="input-field" />
+            <div *ngIf="kundeForm.get('nachname')?.hasError('required')" class="error-message">Name is required.</div>
         </div>
 
-        <div formGroupName="adresse">
-            <label>Ort: <input formControlName="ort" /></label>
-            <div *ngIf="kundeForm.get('ort')?.hasError('required')">Name is required.</div>
+        <div class="form-group">
+            <label for="tel">Tel:</label>
+            <input id="tel" type="text" formControlName="tel" class="input-field" />
+            <div *ngIf="kundeForm.get('tel')?.hasError('required')" class="error-message">Tel is required.</div>
         </div>
 
-        <div formGroupName="adresse">
-            <label>PLZ: <input formControlName="plz" /></label>
-            <div *ngIf="kundeForm.get('plz')?.hasError('required')">Name is required.</div>
+        <div formGroupName="adresse" class="address-group form-group">
+            <label for="strasse">Strasse:</label>
+            <input id="strasse" type="text" formControlName="strasse" class="input-field" />
+            <div *ngIf="kundeForm.get('adresse.strasse')?.hasError('required')" class="error-message">Street is
+                required.</div>
         </div>
 
-        <button type="submit">Create</button>
+        <div formGroupName="adresse" class="address-group form-group">
+            <label for="hausnr">Hausnr:</label>
+            <input id="hausnr" type="text" formControlName="hausnr" class="input-field" />
+            <div *ngIf="kundeForm.get('adresse.hausnr')?.hasError('required')" class="error-message">House number is
+                required.</div>
+        </div>
+
+        <div formGroupName="adresse" class="address-group form-group">
+            <label for="ort">Ort:</label>
+            <input id="ort" type="text" formControlName="ort" class="input-field" />
+            <div *ngIf="kundeForm.get('adresse.ort')?.hasError('required')" class="error-message">City is required.
+            </div>
+        </div>
+
+        <div formGroupName="adresse" class="address-group form-group">
+            <label for="plz">PLZ:</label>
+            <input id="plz" type="text" formControlName="plz" class="input-field" />
+            <div *ngIf="kundeForm.get('adresse.plz')?.hasError('required')" class="error-message">Postal code is
+                required.</div>
+        </div>
+        <div class="button-group">
+            <button type="submit" class="submit-button">Create</button>
+            <button type="button" class="cancel-button" (click)="onCancel()">Cancel</button>
+        </div>
     </form>
 </div>

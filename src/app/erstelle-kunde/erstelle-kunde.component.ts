@@ -13,6 +13,7 @@ import { Kunde } from 'src/data/entities/kunde';
 export class ErstelleKundeComponent {
   @Output() createKundeClicked: EventEmitter<Kunde> = new EventEmitter<Kunde>();
   kundeForm: FormGroup;
+  showModal = false;
 
   constructor(private fb: FormBuilder) {
     this.kundeForm = this.createKundenFbBuilder();
@@ -32,8 +33,6 @@ export class ErstelleKundeComponent {
     });
   }
 
-  showModal = false;
-
   openModal() {
     this.showModal = true;
   }
@@ -42,13 +41,16 @@ export class ErstelleKundeComponent {
     this.showModal = false;
   }
 
+  onCancel(): void {
+    this.closeModal();
+    this.kundeForm.reset();
+  }
+
   onSubmit() {
     if (this.kundeForm.valid) {
       const kundeData = this.kundeForm.value;
-      console.log('Form Data:', kundeData);
-      //this.createKunde.emit(kundeData);
+      this.createKundeClicked.emit(kundeData);
       this.kundeForm.reset();
-      // Optionally, close the modal here
       this.closeModal();
     }
   }
