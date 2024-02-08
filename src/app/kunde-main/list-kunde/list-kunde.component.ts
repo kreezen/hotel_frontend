@@ -58,9 +58,9 @@ export class ListKundeComponent implements OnChanges {
   }
 
   toggleEditRow(index: number): void {
-    if (index === this.editRowIndex) {
+    if (index == this.editRowIndex) {
 
-      if (this.kundeForm.valid) {
+      if (this.kunden.controls[index].valid) {
         this.kundeUpdatedClicked.emit(this.items[index]);
         this.editRowIndex = null;
       }

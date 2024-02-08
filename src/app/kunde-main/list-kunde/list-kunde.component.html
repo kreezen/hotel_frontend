@@ -1,6 +1,20 @@
 <form [formGroup]="kundeForm">
+
   <table>
-    <!-- your table structure -->
+    <thead>
+      <tr>
+        <th>Nachname</th>
+        <th>Vorname</th>
+        <th>Telefon</th>
+        <th>Strasse</th>
+        <th>Hausnr</th>
+        <th>Ort</th>
+        <th>PLZ</th>
+        <th>Action</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
     <tbody formArrayName="kunden">
       <tr *ngFor="let kunde of kunden.controls; let i = index" [formGroupName]="i"
         [ngClass]="{ 'editing': i == editRowIndex }">

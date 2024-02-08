@@ -9,7 +9,7 @@ import { API_ENDPOINT } from "./api_endpoints";
   providedIn: 'root',
 })
 
-export class PostgresDbService implements IDb{
+export class PostgresDbService implements IDb {
 
   private apiEndpoint: string;
 
