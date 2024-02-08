@@ -1,0 +1,38 @@
+<div class="flex items-center">
+    <button class="bg-blue-500 text-white px-4 py-2 rounded" (click)="openModal()">Add</button>
+</div>
+<div class="modal" [style.display]="showModal ? 'block' : 'none'">
+    <form [formGroup]="kundeForm" (ngSubmit)="onSubmit()">
+
+        <label>Vorname: <input formControlName="vorname" /></label>
+        <div *ngIf="kundeForm.get('vorname')?.hasError('required')">Name is required.</div>
+
+        <label>Nachname: <input formControlName="nachname" /></label>
+        <div *ngIf="kundeForm.get('nachname')?.hasError('required')">Name is required.</div>
+
+        <label>Tel: <input formControlName="tel" /></label>
+        <div *ngIf="kundeForm.get('tel')?.hasError('required')">Name is required.</div>
+
+        <div formGroupName="adresse">
+            <label>Strasse: <input formControlName="strasse" /></label>
+            <div *ngIf="kundeForm.get('tel')?.hasError('required')">Name is required.</div>
+        </div>
+
+        <div formGroupName="adresse">
+            <label>Hausnr: <input formControlName="hausnr" /></label>
+            <div *ngIf="kundeForm.get('hausnr')?.hasError('required')">Name is required.</div>
+        </div>
+
+        <div formGroupName="adresse">
+            <label>Ort: <input formControlName="ort" /></label>
+            <div *ngIf="kundeForm.get('ort')?.hasError('required')">Name is required.</div>
+        </div>
+
+        <div formGroupName="adresse">
+            <label>PLZ: <input formControlName="plz" /></label>
+            <div *ngIf="kundeForm.get('plz')?.hasError('required')">Name is required.</div>
+        </div>
+
+        <button type="submit">Create</button>
+    </form>
+</div>

@@ -1,2 +1,4 @@
-<app-list-kunde [items]="kunden" (kundeUpdatedClicked)="updateKunde($event)" (kundeDelClicked)="delKunde($event)"></app-list-kunde>
+<app-list-kunde [items]="kunden" (kundeUpdatedClicked)="updateKunde($event)"
+    (kundeDelClicked)="delKunde($event)"></app-list-kunde>
+<app-erstelle-kunde (createKundeClicked)="createKunde($event)"></app-erstelle-kunde>
 <h1>{{error}}</h1>
