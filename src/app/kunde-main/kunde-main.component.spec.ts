@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { KundeMainComponent } from './kunde-main.component';
-import { ListKundeComponent } from '../list-kunde/list-kunde.component';
+import { ListKundeComponent } from './list-kunde/list-kunde.component';
 
 
 describe('KundeMainComponent', () => {
