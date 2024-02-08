@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { PostgresKundeRepository } from 'src/data/repositories/postgres_kunden_repo_impl';
 import { Kunde } from 'src/data/entities/kunde';
 import { ListKundeComponent } from './list-kunde/list-kunde.component';
-import { Observable, of } from 'rxjs';
 import { ErstelleKundeComponent } from './erstelle-kunde/erstelle-kunde.component';
 
 

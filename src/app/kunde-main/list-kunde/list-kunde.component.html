@@ -6,31 +6,31 @@
         [ngClass]="{ 'editing': i == editRowIndex }">
         <td>
           <input formControlName="nachname" [readonly]="!isEditRow(i)" [(ngModel)]="items[i].nachname">
-          <div *ngIf="kunde.get('nachname')?.hasError('required')">Name is required.</div>
+          <div>{{getKundenErrors(i, "nachname")}}</div>
         </td>
         <td>
           <input formControlName="vorname" [readonly]="!isEditRow(i)" [(ngModel)]="items[i].vorname">
-          <div *ngIf="kunde.get('vorname')?.hasError('required')">Name is required.</div>
+          <div>{{getKundenErrors(i, "vorname")}}</div>
         </td>
         <td>
           <input formControlName="tel" [readonly]="!isEditRow(i)" [(ngModel)]="items[i].tel">
-          <div *ngIf="kunde.get('tel')?.hasError('required')">Name is required.</div>
+          <div>{{getKundenErrors(i, "tel")}}</div>
         </td>
         <td formGroupName="adresse">
           <input formControlName="strasse" [readonly]="!isEditRow(i)" [(ngModel)]="items[i].adresse.strasse">
-          <!--  <div *ngIf="kunde.get('adresse.strasse')?.hasError('required')" >Name is required.</div> -->
+          <div>{{getKundenErrorsNested(i, "strasse")}}</div>
         </td>
         <td formGroupName="adresse">
           <input formControlName="hausnr" [readonly]="!isEditRow(i)" [(ngModel)]="items[i].adresse.hausnr">
-          <div *ngIf="kunde.get('hausnr')?.hasError('required')">Name is required.</div>
+          <div>{{getKundenErrorsNested(i, "hausnr")}}</div>
         </td>
         <td formGroupName="adresse">
           <input formControlName="ort" [readonly]="!isEditRow(i)" [(ngModel)]="items[i].adresse.ort">
-          <div *ngIf="kunde.get('ort')?.hasError('required')">Name is required.</div>
+          <div>{{getKundenErrorsNested(i, "ort")}}</div>
         </td>
         <td formGroupName="adresse">
           <input formControlName="plz" [readonly]="!isEditRow(i)" [(ngModel)]="items[i].adresse.plz">
-          <div *ngIf="kunde.get('plz')?.hasError('required')">Name is required.</div>
+          <div>{{getKundenErrorsNested(i, "plz")}}</div>
         </td>
         <!-- Repeat the same pattern for other columns -->
         <td>
