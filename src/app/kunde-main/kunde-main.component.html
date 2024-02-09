@@ -1,3 +1,4 @@
+<app-filter-kunde [kundenListe]="filterKunden" (filteredKundeClicked)="onFilteredKunde($event)"></app-filter-kunde>
 <app-list-kunde [kundenListe]="kunden" (kundeUpdatedClicked)="updateKunde($event)"
     (kundeDelClicked)="delKunde($event)"></app-list-kunde>
 <app-erstelle-kunde (createKundeClicked)="createKunde($event)"></app-erstelle-kunde>

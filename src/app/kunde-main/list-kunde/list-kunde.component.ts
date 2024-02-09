@@ -94,21 +94,6 @@ export class ListKundeComponent implements OnChanges {
           : ""
   }
 
-  search(searchTerm: string) {
-    // Filtere die Kundenliste basierend auf dem Suchbegriff
-    const gefilterteKunden = this.kundenListe.filter((kunde) =>
-      // Überprüfe jedes Feld auf Übereinstimmung mit dem Suchbegriff
-      Object.values(kunde).some((wert) =>
-        wert.toString().toLowerCase().includes(searchTerm)
-      ) ||
-      // Überprüfe das Adresse-Objekt
-      Object.values(kunde.adresse).some((wert) =>
-        wert.toString().toLowerCase().includes(searchTerm)
-      )
-    );
-    this.buildKundenForm(gefilterteKunden)
-  }
-
   sortTable(sortParams: string) {
 
     const [columnName, sortOrder] = sortParams.split(':');
