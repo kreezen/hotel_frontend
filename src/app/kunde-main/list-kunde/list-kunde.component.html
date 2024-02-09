@@ -1,15 +1,20 @@
+<input type="text" [(ngModel)]="searchTerm" placeholder="Search customers" />
+<button (click)="search(searchTerm)">Suche</button>
+
 <form [formGroup]="kundeForm">
 
   <table>
     <thead>
       <tr>
-        <th>Nachname</th>
-        <th>Vorname</th>
-        <th>Telefon</th>
-        <th>Strasse</th>
-        <th>Hausnr</th>
-        <th>Ort</th>
-        <th>PLZ</th>
+        <!-- <th>Nachname</th>
+        <th>Vorname</th> -->
+        <th appSortOrder="nachname" (sortEvent)="sortTable($event)">Nachname</th>
+        <th appSortOrder="vorname" (sortEvent)="sortTable($event)">Vorname</th>
+        <th appSortOrder="tel" (sortEvent)="sortTable($event)">Telefon</th>
+        <th appSortOrder="adresse.strasse" (sortEvent)="sortTable($event)">Strasse</th>
+        <th appSortOrder="adresse.hausnr" (sortEvent)="sortTable($event)">Hausnr</th>
+        <th appSortOrder="adresse.ort" (sortEvent)="sortTable($event)">Ort</th>
+        <th appSortOrder="adresse.plz" (sortEvent)="sortTable($event)">PLZ</th>
         <th>Action</th>
         <th>Action</th>
       </tr>
@@ -19,32 +24,32 @@
       <tr *ngFor="let kunde of kunden.controls; let i = index" [formGroupName]="i"
         [ngClass]="{ 'editing': i == editRowIndex }">
         <td>
-          <input formControlName="nachname" [readonly]="!isEditRow(i)" [(ngModel)]="items[i].nachname">
+          <input formControlName="nachname" [readonly]="!isEditRow(i)">
           <div>{{getKundenErrors(i, "nachname")}}</div>
         </td>
         <td>
-          <input formControlName="vorname" [readonly]="!isEditRow(i)" [(ngModel)]="items[i].vorname">
+          <input formControlName="vorname" [readonly]="!isEditRow(i)">
           <div>{{getKundenErrors(i, "vorname")}}</div>
         </td>
         <td>
-          <input formControlName="tel" [readonly]="!isEditRow(i)" [(ngModel)]="items[i].tel">
+          <input formControlName="tel" [readonly]="!isEditRow(i)">
           <div>{{getKundenErrors(i, "tel")}}</div>
         </td>
         <td formGroupName="adresse">
-          <input formControlName="strasse" [readonly]="!isEditRow(i)" [(ngModel)]="items[i].adresse.strasse">
-          <div>{{getKundenErrorsNested(i, "strasse")}}</div>
+          <input formControlName="strasse" [readonly]="!isEditRow(i)">
+          <div>{{getKundenErrors(i, "adresse.strasse")}}</div>
         </td>
         <td formGroupName="adresse">
-          <input formControlName="hausnr" [readonly]="!isEditRow(i)" [(ngModel)]="items[i].adresse.hausnr">
-          <div>{{getKundenErrorsNested(i, "hausnr")}}</div>
+          <input formControlName="hausnr" [readonly]="!isEditRow(i)">
+          <div>{{getKundenErrors(i, "adresse.hausnr")}}</div>
         </td>
         <td formGroupName="adresse">
-          <input formControlName="ort" [readonly]="!isEditRow(i)" [(ngModel)]="items[i].adresse.ort">
-          <div>{{getKundenErrorsNested(i, "ort")}}</div>
+          <input formControlName="ort" [readonly]="!isEditRow(i)">
+          <div>{{getKundenErrors(i, "adresse.ort")}}</div>
         </td>
         <td formGroupName="adresse">
-          <input formControlName="plz" [readonly]="!isEditRow(i)" [(ngModel)]="items[i].adresse.plz">
-          <div>{{getKundenErrorsNested(i, "plz")}}</div>
+          <input formControlName="plz" [readonly]="!isEditRow(i)">
+          <div>{{getKundenErrors(i, "adresse.plz")}}</div>
         </td>
         <!-- Repeat the same pattern for other columns -->
         <td>

@@ -60,15 +60,7 @@ export class ErstelleKundeComponent {
       ? "field required"
       : this.kundeForm.get(name)?.hasError('pattern')
         ? "only numbers"
-        : ""
-  }
-
-  getKundenErrorsNested(nestedName: string, name = 'adresse'): string {
-    return this.kundeForm.get(name)?.get(nestedName)?.hasError('required')
-      ? "field required"
-      : this.kundeForm.get(name)?.get(nestedName)?.hasError('pattern')
-        ? "only numbers"
-        : this.kundeForm.get(name)?.get(nestedName)?.hasError('maxlength')
+        : this.kundeForm.get(name)?.hasError('maxlength')
           ? "max lenght is 5"
           : ""
   }

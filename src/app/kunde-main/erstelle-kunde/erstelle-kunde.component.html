@@ -1,5 +1,5 @@
 <div class="flex items-center">
-    <button class="bg-blue-500 text-white px-4 py-2 rounded" (click)="openModal()">Add</button>
+    <button class="bg-blue-500 text-white px-4 py-2 rounded" (click)="openModal()" appSortOrder="nachname">Add</button>
 </div>
 <div class="modal" [style.display]="showModal ? 'flex' : 'none'">
     <form [formGroup]="kundeForm" (ngSubmit)="onSubmit()" class="modal-form">
@@ -25,26 +25,26 @@
         <div formGroupName="adresse" class="address-group form-group">
             <label for="strasse">Strasse:</label>
             <input id="strasse" type="text" formControlName="strasse" class="input-field" />
-            <div class="error-message">{{getKundenErrorsNested("strasse")}}</div>
+            <div class="error-message">{{getKundenErrors("adresse.strasse")}}</div>
         </div>
 
         <div formGroupName="adresse" class="address-group form-group">
             <label for="hausnr">Hausnr:</label>
             <input id="hausnr" type="text" formControlName="hausnr" class="input-field" />
-            <div class="error-message">{{getKundenErrorsNested("hausnr")}}</div>
+            <div class="error-message">{{getKundenErrors("adresse.hausnr")}}</div>
         </div>
 
         <div formGroupName="adresse" class="address-group form-group">
             <label for="ort">Ort:</label>
             <input id="ort" type="text" formControlName="ort" class="input-field" />
-            <div class="error-message">{{getKundenErrorsNested("ort")}}
+            <div class="error-message">{{getKundenErrors("adresse.ort")}}
             </div>
         </div>
 
         <div formGroupName="adresse" class="address-group form-group">
             <label for="plz">PLZ:</label>
             <input id="plz" type="text" formControlName="plz" class="input-field" />
-            <div class="error-message">{{getKundenErrorsNested("plz")}}
+            <div class="error-message">{{getKundenErrors("adresse.plz")}}
             </div>
         </div>
 

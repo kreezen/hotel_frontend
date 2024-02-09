@@ -1,24 +1,25 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, NgModule, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Kunde } from 'src/data/entities/kunde';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { SortOrderDirective } from '../directives/sort-order.directive';
 
 @Component({
   selector: 'app-list-kunde',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, SortOrderDirective],
   templateUrl: './list-kunde.component.html',
   styleUrls: ['./list-kunde.component.css']
 })
 export class ListKundeComponent implements OnChanges {
-  @Input() items: Array<Kunde> = [];
+  @Input() kundenListe: Array<Kunde> = [];
   @Output() kundeUpdatedClicked: EventEmitter<Kunde> = new EventEmitter<Kunde>();
   @Output() kundeDelClicked: EventEmitter<Kunde> = new EventEmitter<Kunde>();
 
   editRowIndex: number | null = null;
   kundeForm: FormGroup;
+  searchTerm: string = "";
 
   constructor(private fb: FormBuilder) {
     this.kundeForm = this.fb.group({
@@ -26,8 +27,8 @@ export class ListKundeComponent implements OnChanges {
     });
   }
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['items'] && changes['items'].currentValue) {
-      this.buildKundenForm(changes['items'].currentValue);
+    if (changes['kundenListe'] && changes['kundenListe'].currentValue) {
+      this.buildKundenForm(changes['kundenListe'].currentValue);
     }
   }
 
@@ -37,6 +38,7 @@ export class ListKundeComponent implements OnChanges {
 
     items.forEach((kunde) => {
       const kundeGroup = this.fb.group({
+        id: [kunde.id],
         vorname: [kunde.vorname, Validators.required],
         nachname: [kunde.nachname, Validators.required],
         tel: [kunde.tel, Validators.compose([Validators.required, Validators.pattern("^[0-9]*$")])],
@@ -61,7 +63,8 @@ export class ListKundeComponent implements OnChanges {
     if (index == this.editRowIndex) {
 
       if (this.kunden.controls[index].valid) {
-        this.kundeUpdatedClicked.emit(this.items[index]);
+        const kunde = this.kunden.controls[index].value
+        this.kundeUpdatedClicked.emit(kunde);
         this.editRowIndex = null;
       }
     } else {
@@ -73,7 +76,7 @@ export class ListKundeComponent implements OnChanges {
   confirmDeleteRow(index: number): void {
     const confirmation = confirm('Are you sure you want to delete this item?');
     if (confirmation) {
-      this.kundeDelClicked.emit(this.items[index]);
+      this.kundeDelClicked.emit(this.kundenListe[index]);
     }
   }
 
@@ -86,18 +89,44 @@ export class ListKundeComponent implements OnChanges {
       ? "field required"
       : this.kunden.controls[index].get(name)?.hasError('pattern')
         ? "only numbers"
-        : ""
-  }
-
-  getKundenErrorsNested(index: number, nestedName: string, name = 'adresse'): string {
-    return this.kunden.controls[index].get(name)?.get(nestedName)?.hasError('required')
-      ? "field required"
-      : this.kunden.controls[index].get(name)?.get(nestedName)?.hasError('pattern')
-        ? "only numbers"
-        : this.kunden.controls[index].get(name)?.get(nestedName)?.hasError('maxlength')
+        : this.kunden.controls[index].get(name)?.hasError('maxlength')
           ? "max lenght is 5"
           : ""
   }
 
+  search(searchTerm: string) {
+    // Filtere die Kundenliste basierend auf dem Suchbegriff
+    const gefilterteKunden = this.kundenListe.filter((kunde) =>
+      // Überprüfe jedes Feld auf Übereinstimmung mit dem Suchbegriff
+      Object.values(kunde).some((wert) =>
+        wert.toString().toLowerCase().includes(searchTerm)
+      ) ||
+      // Überprüfe das Adresse-Objekt
+      Object.values(kunde.adresse).some((wert) =>
+        wert.toString().toLowerCase().includes(searchTerm)
+      )
+    );
+    this.buildKundenForm(gefilterteKunden)
+  }
+
+  sortTable(sortParams: string) {
+
+    const [columnName, sortOrder] = sortParams.split(':');
+    const numericSortOrder = +sortOrder; // convert string to number
+
+
+    this.kunden.controls.sort((a, b) => {
+      const valueA = a.get(columnName)?.value;
+      const valueB = b.get(columnName)?.value;
+
+      if (valueA < valueB) {
+        return -1 * numericSortOrder;
+      } else if (valueA > valueB) {
+        return 1 * numericSortOrder;
+      } else {
+        return 0;
+      }
+    });
+  }
 
 }

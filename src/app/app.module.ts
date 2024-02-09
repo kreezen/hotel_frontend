@@ -8,7 +8,6 @@ import { API_ENDPOINT, postgresConfig } from 'src/data/api/api_endpoints';
 import { HttpClientModule } from '@angular/common/http';
 import { PostgresDbService } from 'src/data/api/postgres_db';
 import { PostgresKundeRepository } from 'src/data/repositories/postgres_kunden_repo_impl';
-import { ListKundeComponent } from './kunde-main/list-kunde/list-kunde.component';
 import { KundeMainComponent } from './kunde-main/kunde-main.component';
 
 @NgModule({
@@ -27,6 +26,7 @@ import { KundeMainComponent } from './kunde-main/kunde-main.component';
     PostgresDbService,
     PostgresKundeRepository
   ],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
